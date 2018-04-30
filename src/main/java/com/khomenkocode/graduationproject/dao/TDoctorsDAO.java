@@ -19,7 +19,7 @@ public class TDoctorsDAO {
 
 	private static final Log log = LogFactory.getLog(TDoctorsDAO.class);
 
-	@PersistenceContext
+	@PersistenceContext(unitName="doctors")
 	private EntityManager entityManager;
 
 	public void persist(TDoctors transientInstance) {

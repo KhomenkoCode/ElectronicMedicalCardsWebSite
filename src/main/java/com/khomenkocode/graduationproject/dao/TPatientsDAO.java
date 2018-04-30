@@ -3,9 +3,14 @@ package com.khomenkocode.graduationproject.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.PersistenceUnit;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
 import com.khomenkocode.graduationproject.entities.TPatients;
 
@@ -15,6 +20,7 @@ import com.khomenkocode.graduationproject.entities.TPatients;
  * @author Hibernate Tools
  */
 @Stateless
+@Repository
 public class TPatientsDAO {
 
 	private static final Log log = LogFactory.getLog(TPatientsDAO.class);
@@ -22,6 +28,15 @@ public class TPatientsDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	
+	public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+	
 	public void persist(TPatients transientInstance) {
 		log.debug("persisting Tpatients instance");
 		try {

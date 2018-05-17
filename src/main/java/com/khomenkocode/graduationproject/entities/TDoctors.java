@@ -1,15 +1,16 @@
 package com.khomenkocode.graduationproject.entities;
-// Generated 26.04.2018 1:06:34 by Hibernate Tools 5.1.4.Final
+// Generated 07.05.2018 15:13:57 by Hibernate Tools 5.1.4.Final
 
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -20,34 +21,42 @@ import javax.persistence.Table;
 public class TDoctors implements java.io.Serializable {
 
 	private int doctorId;
-	private THospitalDepartments tHospitalDepartments;
 	private String doctorName;
 	private String doctorSurname;
 	private String doctorPatronymic;
+	private String licenseNumber;
+	private String password;
 	private Set<TMedicalRecords> tmedicalRecordses = new HashSet<TMedicalRecords>(0);
+	private Set<THospitalDoctors> thospitalDoctorses = new HashSet<THospitalDoctors>(0);
 
 	public TDoctors() {
 	}
 
-	public TDoctors(int doctorId, THospitalDepartments tHospitalDepartments, String doctorName, String doctorSurname) {
-		this.doctorId = doctorId;
-		this.tHospitalDepartments = tHospitalDepartments;
-		this.doctorName = doctorName;
-		this.doctorSurname = doctorSurname;
-	}
-
-	public TDoctors(int doctorId, THospitalDepartments tHospitalDepartments, String doctorName, String doctorSurname,
-			String doctorPatronymic, Set<TMedicalRecords> tmedicalRecordses) {
-		this.doctorId = doctorId;
-		this.tHospitalDepartments = tHospitalDepartments;
+	public TDoctors( String doctorName, String doctorSurname, String doctorPatronymic,
+			String licenseNumber, String password) {
 		this.doctorName = doctorName;
 		this.doctorSurname = doctorSurname;
 		this.doctorPatronymic = doctorPatronymic;
+		this.licenseNumber = licenseNumber;
+		this.password = password;
+	}
+
+	public TDoctors(int doctorId, String doctorName, String doctorSurname, String doctorPatronymic,
+			String licenseNumber, String password, Set<TMedicalRecords> tmedicalRecordses,
+			Set<THospitalDoctors> thospitalDoctorses) {
+		this.doctorId = doctorId;
+		this.doctorName = doctorName;
+		this.doctorSurname = doctorSurname;
+		this.doctorPatronymic = doctorPatronymic;
+		this.licenseNumber = licenseNumber;
+		this.password = password;
 		this.tmedicalRecordses = tmedicalRecordses;
+		this.thospitalDoctorses = thospitalDoctorses;
 	}
 
 	@Id
-
+	@SequenceGenerator(name="pk_sequence",sequenceName="tdoctors_doctor_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "doctor_id", unique = true, nullable = false)
 	public int getDoctorId() {
 		return this.doctorId;
@@ -55,16 +64,6 @@ public class TDoctors implements java.io.Serializable {
 
 	public void setDoctorId(int doctorId) {
 		this.doctorId = doctorId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "hospital_department_id", nullable = false)
-	public THospitalDepartments getThospitalDepartments() {
-		return this.tHospitalDepartments;
-	}
-
-	public void setThospitalDepartments(THospitalDepartments tHospitalDepartments) {
-		this.tHospitalDepartments = tHospitalDepartments;
 	}
 
 	@Column(name = "doctor_name", nullable = false, length = 50)
@@ -94,6 +93,24 @@ public class TDoctors implements java.io.Serializable {
 		this.doctorPatronymic = doctorPatronymic;
 	}
 
+	@Column(name = "license_number", length = 20)
+	public String getLicenseNumber() {
+		return this.licenseNumber;
+	}
+
+	public void setLicenseNumber(String licenseNumber) {
+		this.licenseNumber = licenseNumber;
+	}
+
+	@Column(name = "password", length = 20)
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tdoctors")
 	public Set<TMedicalRecords> getTmedicalRecordses() {
 		return this.tmedicalRecordses;
@@ -102,5 +119,15 @@ public class TDoctors implements java.io.Serializable {
 	public void setTmedicalRecordses(Set<TMedicalRecords> tmedicalRecordses) {
 		this.tmedicalRecordses = tmedicalRecordses;
 	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tdoctors")
+	public Set<THospitalDoctors> getThospitalDoctorses() {
+		return this.thospitalDoctorses;
+	}
+
+	public void setThospitalDoctorses(Set<THospitalDoctors> thospitalDoctorses) {
+		this.thospitalDoctorses = thospitalDoctorses;
+	}
+
 
 }

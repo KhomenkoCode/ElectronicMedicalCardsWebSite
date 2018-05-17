@@ -7,39 +7,7 @@
    http://www.springframework.org/schema/context
    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-<!-- 
-<bean class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close" id="dataSource">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url"
-			value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="testOnBorrow" value="true" />
-		<property name="testOnReturn" value="true" />
-		<property name="testWhileIdle" value="true" />
-		<property name="timeBetweenEvictionRunsMillis" value="1800000" />
-		<property name="numTestsPerEvictionRun" value="3" />
-		<property name="minEvictableIdleTimeMillis" value="1800000" />
-		<property name="validationQuery" value="SELECT version();" />
-	</bean>
 
-<bean id="entityManagerFactory"
-     class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-     <property name="dataSource" ref="dataSource"/>
-     <property name="jpaVendorAdapter">
-         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-     </property>
-     <property name="jpaProperties">
-         <props>
-           <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-           <prop key="hibernate.show_sql">true</prop>
-           <prop key="hibernate.hbm2ddl.auto">update</prop>
-         </props>
-     </property>
-</bean>
-
- -->
  
  
 <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>

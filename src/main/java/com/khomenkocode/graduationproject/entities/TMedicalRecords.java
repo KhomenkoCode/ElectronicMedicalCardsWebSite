@@ -1,7 +1,9 @@
 package com.khomenkocode.graduationproject.entities;
-// Generated 26.04.2018 1:06:34 by Hibernate Tools 5.1.4.Final
+// Generated 07.05.2018 15:13:57 by Hibernate Tools 5.1.4.Final
 
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +50,7 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.medicalRecordId = medicalRecordId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "doctor_id", nullable = false)
 	public TDoctors getTdoctors() {
 		return this.tDoctors;
@@ -58,7 +60,7 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.tDoctors = tDoctors;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "patient_id", nullable = false)
 	public TPatients getTpatients() {
 		return this.tPatients;

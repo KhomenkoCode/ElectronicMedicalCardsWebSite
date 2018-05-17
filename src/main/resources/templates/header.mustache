@@ -1,0 +1,84 @@
+<nav class="fh5co-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-xs-2">
+					<div id="fh5co-logo"><a href="/">Medical card</a> </div>
+				</div>
+				<div class="col-md-6 col-xs-6 text-center menu-1">
+					<ul>
+						<li
+						{{#index}}
+							class="active"
+						{{/index}}						
+						>
+							<a href="/">About</a>
+						</li>
+						{{#doctor}}
+							<li>
+								<a href="/profile">Profile</a>
+							</li>
+						{{/doctor}}
+						{{^doctor}}
+							{{#patient}}
+							<li>
+								<a href="/profile">Profile</a>
+							</li>
+							{{/patient}}
+						{{/doctor}}
+						
+						{{#patient}}
+							<li>
+								<a href="/records">Medical records</a>
+							</li>
+						{{/patient}}
+						<li
+						{{#contact}}
+							class="active"
+						{{/contact}}
+						><a href="contact">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+					<ul>
+						{{#doctor}}
+							<li>
+								<a href="/logout">Log Out</a>
+							</li>
+						{{/doctor}}
+						{{^doctor}}
+							{{#patient}}
+							<li>
+								<a href="/logout">Log Out</a>
+							</li>
+							{{/patient}}
+							{{^patient}}
+						<li class="
+						{{#login}}
+							active
+						{{/login}}
+						has-dropdown">
+							<a href="login">Login</a>
+							<ul class="dropdown">
+								<li><a href="patientlogin">As Patient</a></li>
+								<li><a href="login">As Doctor</a></li>
+							</ul>
+						</li>
+						<li class="
+						{{#register}}
+							active
+						{{/register}}
+						has-dropdown">
+							<a href="register">Register</a>
+							<ul class="dropdown">
+								<li><a href="register">As Patient</a></li>
+								<li><a href="register">As Doctor</a></li>
+							</ul>
+						</li>
+						
+							{{/patient}}{{/doctor}}
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>

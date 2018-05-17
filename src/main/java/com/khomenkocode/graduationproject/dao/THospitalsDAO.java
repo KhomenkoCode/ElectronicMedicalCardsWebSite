@@ -1,11 +1,18 @@
 package com.khomenkocode.graduationproject.dao;
 // Generated 26.04.2018 1:06:35 by Hibernate Tools 5.1.4.Final
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.khomenkocode.graduationproject.entities.THospitals;
 
@@ -15,6 +22,8 @@ import com.khomenkocode.graduationproject.entities.THospitals;
  * @author Hibernate Tools
  */
 @Stateless
+@Repository
+@Transactional 
 public class THospitalsDAO {
 
 	private static final Log log = LogFactory.getLog(THospitalsDAO.class);
@@ -22,6 +31,9 @@ public class THospitalsDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Autowired
+	SessionFactory sessionFactory;
+	
 	public void persist(THospitals transientInstance) {
 		log.debug("persisting Thospitals instance");
 		try {
@@ -66,5 +78,10 @@ public class THospitalsDAO {
 			log.error("get failed", re);
 			throw re;
 		}
+	}
+	
+	public List<THospitals> getAll(){
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from THospitals").list();
 	}
 }

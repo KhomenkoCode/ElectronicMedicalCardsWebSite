@@ -1,5 +1,5 @@
 package com.khomenkocode.graduationproject.entities;
-// Generated 26.04.2018 1:06:34 by Hibernate Tools 5.1.4.Final
+// Generated 07.05.2018 15:13:57 by Hibernate Tools 5.1.4.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -87,5 +87,6 @@ public class TPatients implements java.io.Serializable {
 	public void setTmedicalRecordses(Set<TMedicalRecords> tmedicalRecordses) {
 		this.tmedicalRecordses = tmedicalRecordses;
 	}
+
 
 }

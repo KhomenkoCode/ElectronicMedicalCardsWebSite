@@ -1,5 +1,5 @@
 package com.khomenkocode.graduationproject.entities;
-// Generated 26.04.2018 1:06:34 by Hibernate Tools 5.1.4.Final
+// Generated 07.05.2018 15:13:57 by Hibernate Tools 5.1.4.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ public class THospitals implements java.io.Serializable {
 	private int hospitalId;
 	private String hospitalName;
 	private String hospitalAdress;
-	private Set<THospitalDepartments> thospitalDepartmentses = new HashSet<THospitalDepartments>(0);
+	private Set<THospitalDoctors> thospitalDoctorses = new HashSet<THospitalDoctors>(0);
 
 	public THospitals() {
 	}
@@ -30,11 +30,11 @@ public class THospitals implements java.io.Serializable {
 	}
 
 	public THospitals(int hospitalId, String hospitalName, String hospitalAdress,
-			Set<THospitalDepartments> thospitalDepartmentses) {
+			Set<THospitalDoctors> thospitalDoctorses) {
 		this.hospitalId = hospitalId;
 		this.hospitalName = hospitalName;
 		this.hospitalAdress = hospitalAdress;
-		this.thospitalDepartmentses = thospitalDepartmentses;
+		this.thospitalDoctorses = thospitalDoctorses;
 	}
 
 	@Id
@@ -67,12 +67,12 @@ public class THospitals implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "thospitals")
-	public Set<THospitalDepartments> getThospitalDepartmentses() {
-		return this.thospitalDepartmentses;
+	public Set<THospitalDoctors> getThospitalDoctorses() {
+		return this.thospitalDoctorses;
 	}
 
-	public void setThospitalDepartmentses(Set<THospitalDepartments> thospitalDepartmentses) {
-		this.thospitalDepartmentses = thospitalDepartmentses;
+	public void setThospitalDoctorses(Set<THospitalDoctors> thospitalDoctorses) {
+		this.thospitalDoctorses = thospitalDoctorses;
 	}
 
 }

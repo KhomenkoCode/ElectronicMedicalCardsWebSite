@@ -28,6 +28,8 @@ public class TDoctors implements java.io.Serializable {
 	private String password;
 	private Set<TMedicalRecords> tmedicalRecordses = new HashSet<TMedicalRecords>(0);
 	private Set<THospitalDoctors> thospitalDoctorses = new HashSet<THospitalDoctors>(0);
+	private Short doctorIsConfirmed;
+	private String licenseConfirmationPhotoUrl;
 
 	public TDoctors() {
 	}
@@ -39,6 +41,7 @@ public class TDoctors implements java.io.Serializable {
 		this.doctorPatronymic = doctorPatronymic;
 		this.licenseNumber = licenseNumber;
 		this.password = password;
+		this.doctorIsConfirmed = 0;
 	}
 
 	public TDoctors(int doctorId, String doctorName, String doctorSurname, String doctorPatronymic,
@@ -52,6 +55,7 @@ public class TDoctors implements java.io.Serializable {
 		this.password = password;
 		this.tmedicalRecordses = tmedicalRecordses;
 		this.thospitalDoctorses = thospitalDoctorses;
+		doctorIsConfirmed = 0;
 	}
 
 	@Id
@@ -129,5 +133,21 @@ public class TDoctors implements java.io.Serializable {
 		this.thospitalDoctorses = thospitalDoctorses;
 	}
 
+	@Column(name = "doctor_is_confirmed")
+	public Short getDoctorIsConfirmed() {
+		return this.doctorIsConfirmed;
+	}
 
+	public void setDoctorIsConfirmed(Short doctorIsConfirmed) {
+		this.doctorIsConfirmed = doctorIsConfirmed;
+	}
+
+	@Column(name = "license_confirmation_photo_url", length = 200)
+	public String getLicenseConfirmationPhotoUrl() {
+		return this.licenseConfirmationPhotoUrl;
+	}
+
+	public void setLicenseConfirmationPhotoUrl(String licenseConfirmationPhotoUrl) {
+		this.licenseConfirmationPhotoUrl = licenseConfirmationPhotoUrl;
+	}
 }

@@ -75,62 +75,21 @@
 	
 	{{> header}}
  
-
-	<div id="fh5co-about"  role="banner" style="background-image:url(images/img_bg_1.jpg);padding-top:25pt;">
-		
-		<div class="container">
-			<div class="about-content" style="min-height:250pt;">
-				<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					Medical records <a href="/addrecord"> Add record</a>
-				</div>
-				{{#records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-					<i style="color:#4b0ba5;"> 
-					
-					<table style="width:100%;"><tr>
-					<td style="width:50%;">
-					Time: {{medicalRecordDate}}
-					<br>
-					{{#patient}}
-					{{#tDoctors}}
-						MD: {{doctorSurname}} {{doctorName}} {{doctorPatronymic}}
-					{{/tDoctors}}
-					{{/patient}}
-					{{#doctor}}
-						
-					{{#tPatients}}
-						Patient: {{patientName}} {{patientSurname}}
-					{{/tPatients}}
-					{{/doctor}} 
-					</td><td style="width:50%; text-align: right;">
-					 <a href="/changerecord?record={{medicalRecordId}}">Change record</a><br>
-					 <a href="/removerecord?record={{medicalRecordId}}">Remove record</a>
-					</td>
-					</tr></table>
-					</i>
-					<hr style="margin:0; padding:0;">
-					{{medicalRecord}} 
-					<hr>
-					<a href="/addimage?record={{medicalRecordId}}">add image</a>
-					</div>
-				{{/records}}
-				{{^records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-						No medical records.
-					</div>
-				{{/records}}
-   					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					<a href="/addrecord"> Add record</a>
-				</div>
-					
-				
-			</div>
-		</div>
-	</div>
-  
+	Num: {{num}}
+  	time: {{time}}
    </div>
+    <script src="js/qrcode.js"></script>
+     <script src="js/qrcode.min.js"></script>
+ <script> 
+
+function makeCode () {      
+	 var qrcode = new QRCode(document.getElementById("qrcode"), "{{#doctor}}{{patientId}}{{/doctor}}");
+}
+
+makeCode();
+</script>
    <script src="../../js/qcode-decoder.min.js"></script>
-   
+  
    <!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->

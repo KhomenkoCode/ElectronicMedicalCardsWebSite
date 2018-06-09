@@ -2,14 +2,20 @@ package com.khomenkocode.graduationproject.entities;
 // Generated 07.05.2018 15:13:57 by Hibernate Tools 5.1.4.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +32,18 @@ public class TMedicalRecords implements java.io.Serializable {
 	private TPatients tPatients;
 	private String medicalRecord;
 	private Date medicalRecordDate;
+	//TODO No lazy load images
+	private Set<TImages> timageses = new HashSet<TImages>(0);
 
 	public TMedicalRecords() {
+	}
+
+	public TMedicalRecords(TDoctors tDoctors, TPatients tPatients, String medicalRecord,
+			Date medicalRecordDate) {
+		this.tDoctors = tDoctors;
+		this.tPatients = tPatients;
+		this.medicalRecord = medicalRecord;
+		this.medicalRecordDate = medicalRecordDate;
 	}
 
 	public TMedicalRecords(int medicalRecordId, TDoctors tDoctors, TPatients tPatients, String medicalRecord,
@@ -38,9 +54,10 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.medicalRecord = medicalRecord;
 		this.medicalRecordDate = medicalRecordDate;
 	}
-
+	
 	@Id
-
+	@SequenceGenerator(name="pk_sequence",sequenceName="tmedical_records_medical_record_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "medical_record_id", unique = true, nullable = false)
 	public int getMedicalRecordId() {
 		return this.medicalRecordId;
@@ -50,7 +67,7 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.medicalRecordId = medicalRecordId;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "doctor_id", nullable = false)
 	public TDoctors getTdoctors() {
 		return this.tDoctors;
@@ -60,7 +77,7 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.tDoctors = tDoctors;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@ManyToOne( fetch=FetchType.EAGER)
 	@JoinColumn(name = "patient_id", nullable = false)
 	public TPatients getTpatients() {
 		return this.tPatients;
@@ -88,5 +105,13 @@ public class TMedicalRecords implements java.io.Serializable {
 	public void setMedicalRecordDate(Date medicalRecordDate) {
 		this.medicalRecordDate = medicalRecordDate;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tmedicalRecords")
+	public Set<TImages> getTimageses() {
+		return this.timageses;
+	}
 
+	public void setTimageses(Set<TImages> timageses) {
+		this.timageses = timageses;
+	}
 }

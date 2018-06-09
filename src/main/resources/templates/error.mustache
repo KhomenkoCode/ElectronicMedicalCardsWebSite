@@ -4,7 +4,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Web Medical Card Service</title>
+	<title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
@@ -38,10 +38,6 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
 	
-	<!-- Bootstrap -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-	
-	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -72,62 +68,32 @@
 	<div class="fh5co-loader"></div>
 	
 	<div id="page">
-	
 	{{> header}}
  
 
-	<div id="fh5co-about"  role="banner" style="background-image:url(images/img_bg_1.jpg);padding-top:25pt;">
+	<div id="fh5co-about"  role="banner" style="background-image:url(images/img_bg_2.jpg);padding-top:25pt;">
 		
 		<div class="container">
-			<div class="about-content" style="min-height:250pt;">
-				<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					Medical records <a href="/addrecord"> Add record</a>
-				</div>
-				{{#records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-					<i style="color:#4b0ba5;"> 
-					
-					<table style="width:100%;"><tr>
-					<td style="width:50%;">
-					Time: {{medicalRecordDate}}
-					<br>
-					{{#patient}}
-					{{#tDoctors}}
-						MD: {{doctorSurname}} {{doctorName}} {{doctorPatronymic}}
-					{{/tDoctors}}
-					{{/patient}}
-					{{#doctor}}
-						
-					{{#tPatients}}
-						Patient: {{patientName}} {{patientSurname}}
-					{{/tPatients}}
-					{{/doctor}} 
-					</td><td style="width:50%; text-align: right;">
-					 <a href="/changerecord?record={{medicalRecordId}}">Change record</a><br>
-					 <a href="/removerecord?record={{medicalRecordId}}">Remove record</a>
-					</td>
-					</tr></table>
-					</i>
-					<hr style="margin:0; padding:0;">
-					{{medicalRecord}} 
-					<hr>
-					<a href="/addimage?record={{medicalRecordId}}">add image</a>
-					</div>
-				{{/records}}
-				{{^records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-						No medical records.
-					</div>
-				{{/records}}
-   					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					<a href="/addrecord"> Add record</a>
-				</div>
-					
+			<div class="about-content">
+				<div class="row animate-box">
 				
+						<div>
+							<center><h3>Something went wrong! </h3>
+								<p>
+								{{error code}} - {{error message}}<br>
+								<a href="/">Back to home page</a>
+								</p> 
+							</div>
+						</center>
+						<!-- 	#E1E0DC -->
+   
+   						
+					</div>
+					
 			</div>
 		</div>
 	</div>
-  
+  {{> footer}}
    </div>
    <script src="../../js/qcode-decoder.min.js"></script>
    

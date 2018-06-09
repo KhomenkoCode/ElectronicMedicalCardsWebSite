@@ -4,6 +4,7 @@ package com.khomenkocode.graduationproject.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
@@ -76,6 +77,17 @@ public class TPatientsDAO {
 		try {
 			TPatients instance = entityManager.find(TPatients.class, id);
 			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public TPatients findByEmailAndPassword(String email, String password) throws NoResultException {
+		try {
+			TPatients instance = (TPatients) entityManager.createQuery("FROM TPatients t where t.email = :value1 and t.password = :value2")
+					.setParameter("value1", email).setParameter("value2", password).getSingleResult();
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

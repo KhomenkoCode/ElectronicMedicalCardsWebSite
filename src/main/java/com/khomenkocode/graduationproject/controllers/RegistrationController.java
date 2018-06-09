@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,13 @@ import com.khomenkocode.graduationproject.entities.THospitalDoctors;
 import com.khomenkocode.graduationproject.entities.TPatients;
 
 @Controller
-public class DoctorRegisterController {
+public class RegistrationController {
 
 	@Autowired
 	TDoctorsDAO doctorsDAO;
+	
+	@Autowired
+	TPatientsDAO patientsDAO;
 	
 	@Autowired
 	THospitalsDAO hospitalDAO;
@@ -36,8 +40,45 @@ public class DoctorRegisterController {
 		return model;
 	}
 	
+	@GetMapping("/patientregistration")
+    public String patientRegistrationGet(Model model) {
+    	setHospitals(model);
+    	model.addAttribute("errormessage", "");
+        return "patientregister";
+    }
+    
+	@Transactional
+	@PostMapping("/patientregistration")
+    public String patientRegistrationPost(Model model, @RequestParam(value="fname", required=false) String name
+    		, @RequestParam(value="lname", required=false) String lastname
+    		, @RequestParam(value="patr", required=false) String patro
+    		, @RequestParam(value="email", required=false) String email
+    		, @RequestParam(value="password", required=false) String pass1
+    		, @RequestParam(value="password2", required=false) String pass2) {
+
+		if(!pass1.equals(pass2))
+    	{
+    		model.addAttribute("errormessage", "Wrong password");
+    		setHospitals(model);
+    		return "patientregister";
+    	}
+		
+		TPatients patient = new TPatients(name, lastname, patro, email, pass1);
+		
+		try{
+    		patientsDAO.persist(patient);	
+    	} catch(RuntimeException re){
+    		model.addAttribute("errormessage", "Adding to database error! Please, try register later.");
+    		return "patientregister";
+    	}
+		
+		
+    	model.addAttribute("errormessage", "Success! Patient registered");
+        return "patientregister";
+    }
+	
     @GetMapping("/doctorregistration")
-    public String registrationGet(Model model) {
+    public String doctorRegistrationGet(Model model) {
     	setHospitals(model);
     	model.addAttribute("errormessage", "");
         return "doctorregister";
@@ -52,12 +93,6 @@ public class DoctorRegisterController {
     		, @RequestParam(value="password2", required=false) String pass2
     		, @RequestParam(value="hospital", required=false) String hospitalId) {
     	
-    	if(!pass1.equals(pass2))
-    	{
-    		model.addAttribute("errormessage", "Wrong password ");
-    		setHospitals(model);
-    		return "doctorregister";
-    	}
     	
     	TDoctors doctor = new TDoctors(name, lastname, patro, licNumber, pass1);
     	

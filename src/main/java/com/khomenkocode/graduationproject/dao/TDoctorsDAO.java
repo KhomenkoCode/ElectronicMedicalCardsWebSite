@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +105,23 @@ public class TDoctorsDAO {
 			
 			log.debug("get successful");
 			return list.get(0);
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public TDoctors findByLicenseNumberAndPassword(String license, String password) throws NoResultException {
+		
+		try {
+			TDoctors instance = (TDoctors) entityManager.createQuery("FROM TDoctors t where t.licenseNumber = :value1 and t.password = :value2")
+					.setParameter("value1", license).setParameter("value2", password).getSingleResult();
+			
+			if(instance.getDoctorIsConfirmed() == 0) 
+				throw new RuntimeException("Doctors profile isn't activated");
+				
+			return instance;
+		
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
 			throw re;

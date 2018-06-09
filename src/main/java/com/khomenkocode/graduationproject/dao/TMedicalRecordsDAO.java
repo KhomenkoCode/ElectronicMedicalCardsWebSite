@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.khomenkocode.graduationproject.entities.TDoctors;
 import com.khomenkocode.graduationproject.entities.TMedicalRecords;
 import com.khomenkocode.graduationproject.entities.TPatients;
 
@@ -91,15 +92,23 @@ public class TMedicalRecordsDAO {
 			Session session = sessionFactory.getCurrentSession();// rec join fetch rec.tdoctors
 			String query = "from TMedicalRecords where patient_id='" + patient.getPatientId()+"'";
 			Query result = session.createQuery(query);
-			List<TMedicalRecords> list = result.list();
-			
-			/*
-			Criteria criteria = session.createCriteria(TMedicalRecords.class);
-			criteria.add(Restrictions.eq("patient_id", (patient.getPatientId())));
-			List<TMedicalRecords> list = criteria.list();
-			*/
-			
-			
+			List<TMedicalRecords> list = result.list();		
+			log.debug("get successful");
+			return list;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+
+	public List<TMedicalRecords> findAllByDoctor(TDoctors doctor) {
+		log.debug("getting all TmedicalRecords instance with doctor id: " + doctor.getDoctorId());
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			String query = "from TMedicalRecords where doctor_id='" + doctor.getDoctorId()+"'";
+			Query result = session.createQuery(query);
+			List<TMedicalRecords> list = result.list();		
 			log.debug("get successful");
 			return list;
 		} catch (RuntimeException re) {

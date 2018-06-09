@@ -12,7 +12,7 @@
 
 	<!-- 
 	//////////////////////////////////////////////////////
-
+a
 	FREE HTML5 TEMPLATE 
 	DESIGNED & DEVELOPED by FreeHTML5.co
 		
@@ -80,50 +80,54 @@
 		
 		<div class="container">
 			<div class="about-content" style="min-height:250pt;">
-				<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					Medical records <a href="/addrecord"> Add record</a>
-				</div>
-				{{#records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-					<i style="color:#4b0ba5;"> 
-					
-					<table style="width:100%;"><tr>
-					<td style="width:50%;">
-					Time: {{medicalRecordDate}}
-					<br>
-					{{#patient}}
-					{{#tDoctors}}
-						MD: {{doctorSurname}} {{doctorName}} {{doctorPatronymic}}
-					{{/tDoctors}}
-					{{/patient}}
-					{{#doctor}}
-						
-					{{#tPatients}}
-						Patient: {{patientName}} {{patientSurname}}
-					{{/tPatients}}
-					{{/doctor}} 
-					</td><td style="width:50%; text-align: right;">
-					 <a href="/changerecord?record={{medicalRecordId}}">Change record</a><br>
-					 <a href="/removerecord?record={{medicalRecordId}}">Remove record</a>
-					</td>
-					</tr></table>
-					</i>
-					<hr style="margin:0; padding:0;">
-					{{medicalRecord}} 
-					<hr>
-					<a href="/addimage?record={{medicalRecordId}}">add image</a>
-					</div>
-				{{/records}}
-				{{^records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-						No medical records.
-					</div>
-				{{/records}}
-   					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					<a href="/addrecord"> Add record</a>
-				</div>
-					
 				
+				
+   					
+				<div class="col-md-12 animate-box" style="background-color:white; padding:15pt;">
+					<h3>Adding image to medical record form </h3>
+					<div class="form-group" style="color:red;">
+							{{errormessage}}
+					</div>
+						
+					<form method="POST" action="">
+						<div class="row form-group">
+							{{#patient}}
+							<div class="col-md-6">
+								<label for="license">Doctor license number</label>
+								<input type="text" id="license"  name="license" class="form-control" placeholder="Doctor license number">
+							</div>
+							{{/patient}}
+							{{#doctor}}
+							<div class="col-md-6">
+								<label for="email">Patient e-mail</label>
+								<input type="text" id="email"  name="email" class="form-control" placeholder="Patient email">
+							</div>
+							{{/doctor}}
+							<div class="col-md-6">
+							{{#patient}}
+								<label for="password">Doctor password</label>
+							{{/patient}}
+							{{#doctor}}
+								<label for="password">Patient password</label>
+							{{/doctor}}
+								<input type="text" id="password" name="password" class="form-control" placeholder="Password">
+							</div>
+							
+						</div>
+						<div class="row form-group">
+							<div class="col-md-12">
+								<label for="record">Addiction image</label> 
+								<input id="image" name="image" type="file" accept="image/x-png,image/gif,image/jpeg">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<input type="submit" value="Add record" class="btn btn-primary">
+						</div>
+
+					</form>		
+				</div>
+			
 			</div>
 		</div>
 	</div>

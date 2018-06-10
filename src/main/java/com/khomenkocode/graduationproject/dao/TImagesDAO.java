@@ -5,6 +5,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.khomenkocode.graduationproject.entities.TImages;
 /**
  * Home object for domain model class Timages.
@@ -12,6 +15,8 @@ import com.khomenkocode.graduationproject.entities.TImages;
  * @author Hibernate Tools
  */
 @Stateless
+@Repository
+@Transactional 
 public class TImagesDAO {
 
 	private static final Log log = LogFactory.getLog(TImagesDAO.class);

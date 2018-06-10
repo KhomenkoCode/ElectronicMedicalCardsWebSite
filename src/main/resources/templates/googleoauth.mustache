@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -12,7 +13,7 @@
 
 	<!-- 
 	//////////////////////////////////////////////////////
-
+a
 	FREE HTML5 TEMPLATE 
 	DESIGNED & DEVELOPED by FreeHTML5.co
 		
@@ -80,51 +81,20 @@
 		
 		<div class="container">
 			<div class="about-content" style="min-height:250pt;">
-				<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					Medical records <a href="/addrecord"> Add record</a>
-				</div>
 				
-				{{#records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-					<i style="color:#4b0ba5;"> 
-					
-					<table style="width:100%;"><tr>
-					<td style="width:50%;">
-					Time: {{medicalRecordDate}}
-					<br>
-					{{#patient}}
-					{{#tDoctors}}
-						MD: {{doctorSurname}} {{doctorName}} {{doctorPatronymic}}
-					{{/tDoctors}}
-					{{/patient}}
-					{{#doctor}}
+				
+   					
+				<div class="col-md-12 animate-box" style="background-color:white; padding:15pt;">
+					<h3>Adding image to medical record form </h3>
+					<div class="form-group" style="color:red;">
+							{{errormessage}}
+					</div>
 						
-					{{#tPatients}}
-						Patient: {{patientName}} {{patientSurname}}
-					{{/tPatients}}
-					{{/doctor}} 
-					</td><td style="width:50%; text-align: right;">
-					 <a href="/changerecord?record={{medicalRecordId}}">Change record</a><br>
-					 <a href="/removerecord?record={{medicalRecordId}}">Remove record</a>
-					</td>
-					</tr></table>
-					</i>
-					<hr style="margin:0; padding:0;">
-					{{medicalRecord}} 
-					<hr>
-					<a href="/addimage?record={{medicalRecordId}}">add image</a>
-					</div>
-				{{/records}}
-				{{^records}}
-					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;">
-						No medical records.
-					</div>
-				{{/records}}
-   					<div class="alert alert-light" role="alert" style="margin:5pt; padding:5pt;text-align: center;">
-					<a href="/addrecord"> Add record</a>
+						<a href="
+https://accounts.google.com/o/oauth2/auth?access_type=offline&client_id=566664926252-c9hdks1dpleaicbfmb6oocc4j5iqjf5o.apps.googleusercontent.com&redirect_uri=http://localhost:8080/callback&response_type=code&scope=https://www.googleapis.com/auth/drive">
+						Link</a>
 				</div>
-					
-				
+			
 			</div>
 		</div>
 	</div>

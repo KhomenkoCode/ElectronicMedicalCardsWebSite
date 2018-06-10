@@ -89,20 +89,22 @@ a
 							{{errormessage}}
 					</div>
 						
-					<form method="POST" action="">
+					<form method="POST" action="" enctype="multipart/form-data">
 						<div class="row form-group">
-							{{#patient}}
 							<div class="col-md-6">
-								<label for="license">Doctor license number</label>
-								<input type="text" id="license"  name="license" class="form-control" placeholder="Doctor license number">
-							</div>
+							{{#patient}}
+								<label>Medical doctor</label><br>
+								{{#medrecord}}{{#tDoctors}}{{doctorName}} {{doctorSurname}} {{doctorPatronymic}}{{/tDoctors}}{{/medrecord}}
 							{{/patient}}
 							{{#doctor}}
-							<div class="col-md-6">
-								<label for="email">Patient e-mail</label>
-								<input type="text" id="email"  name="email" class="form-control" placeholder="Patient email">
-							</div>
+								<label>Patient</label><br>
+								{{#medrecord}}
+								{{#tPatients}}
+								{{patientName}} {{patientSurname}}
+								{{/tPatients}}
+								{{/medrecord}}
 							{{/doctor}}
+							</div>
 							<div class="col-md-6">
 							{{#patient}}
 								<label for="password">Doctor password</label>
@@ -116,8 +118,12 @@ a
 						</div>
 						<div class="row form-group">
 							<div class="col-md-12">
-								<label for="record">Addiction image</label> 
-								<input id="image" name="image" type="file" accept="image/x-png,image/gif,image/jpeg">
+								<label for="imgname">Image name</label>
+								<input type="text" id="imgname" name="imgname" class="form-control" placeholder="image name">
+							</div>
+							<div class="col-md-12">
+								<label for="image">Addiction image</label> 
+								<input id="image" name="image" type="file" accept="image/*">
 							</div>
 						</div>
 						

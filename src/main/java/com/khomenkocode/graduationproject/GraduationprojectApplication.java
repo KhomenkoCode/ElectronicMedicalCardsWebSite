@@ -20,4 +20,6 @@ public class GraduationprojectApplication {
 	 public SessionFactory sessionFactory(HibernateEntityManagerFactory hemf) {
 	    return hemf.getSessionFactory();
 	 }
+
+	 
 }

@@ -90,7 +90,7 @@ public class TMedicalRecordsDAO {
 		log.debug("getting all TmedicalRecords instance with patient id: " + patient.getPatientId());
 		try {
 			Session session = sessionFactory.getCurrentSession();// rec join fetch rec.tdoctors
-			String query = "from TMedicalRecords where patient_id='" + patient.getPatientId()+"'";
+			String query = "from TMedicalRecords JOIN FETCH tImages where patient_id='" + patient.getPatientId()+"'";
 			Query result = session.createQuery(query);
 			List<TMedicalRecords> list = result.list();		
 			log.debug("get successful");

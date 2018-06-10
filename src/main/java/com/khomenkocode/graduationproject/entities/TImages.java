@@ -3,9 +3,12 @@ package com.khomenkocode.graduationproject.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,15 +26,15 @@ public class TImages implements java.io.Serializable {
 	public TImages() {
 	}
 
-	public TImages(int imageId, TMedicalRecords tmedicalRecords, String imageName, String imageUrl) {
-		this.imageId = imageId;
+	public TImages(TMedicalRecords tmedicalRecords, String imageName, String imageUrl) {
 		this.tmedicalRecords = tmedicalRecords;
 		this.imageName = imageName;
 		this.imageUrl = imageUrl;
 	}
 
 	@Id
-
+	@SequenceGenerator(name="pk_sequence",sequenceName="timages_image_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "image_id", unique = true, nullable = false)
 	public int getImageId() {
 		return this.imageId;

@@ -29,7 +29,7 @@ import com.khomenkocode.graduationproject.entities.TPatients;
 import com.khomenkocode.graduationproject.services.GoogleDriveService;
 
 @Controller
-@SessionAttributes({"patient","admin","doctor", "driveAccessCode", "recordnum", "drive"})
+@SessionAttributes({"patient","admin","doctor", "driveAccessCode", "recordnum", "drive", "oauthredirect"})
 public class MedicalRecordImagesCRUDController {
 	
 	@Autowired
@@ -49,12 +49,16 @@ public class MedicalRecordImagesCRUDController {
     public String googleCallback(Model model, @RequestParam(value = "code") String code, HttpSession httpSession){
 		model.addAttribute("driveAccessCode", code);
 		System.out.println(code);
+		
+		if(((int)httpSession.getAttribute("oauthredirect")) == 1)
+			return "redirect:/licenseconfirmation";
+		
 		return "redirect:/addimage?record="+httpSession.getAttribute("recordnum");
 	}	
 	
 	@GetMapping("/addimage")
-    public String patientAddRecord(Model model, @RequestParam(value = "record") String record, HttpSession httpSession) {
-    	
+    public String patientAddImage(Model model, @RequestParam(value = "record") String record, HttpSession httpSession) {
+		model.addAttribute("oauthredirect", 0);
 		if(httpSession.getAttribute("driveAccessCode")==null){
     		model.addAttribute("records", true);
     		model.addAttribute("recordnum", record);
@@ -91,27 +95,33 @@ public class MedicalRecordImagesCRUDController {
 	
 	
 	@PostMapping(path = "/addimage", consumes = { "multipart/form-data" })
-    public String patientAddRecordPost(Model model,
+    public String patientAddImagePost(Model model,
     		HttpSession httpSession, 
     		@RequestParam(value = "record") String record, 
-    		@RequestParam("password") String password,
+    		@RequestParam(value ="password", required = false) String password,
     		@RequestParam("imgname") String name,
     		@RequestParam("image") MultipartFile multipartFile) {
     	try{
+    		
+    		
     		TPatients pat = (TPatients) httpSession.getAttribute("patient");
     		TDoctors doc = (TDoctors) httpSession.getAttribute("doctor");
 
     		TMedicalRecords medRec = medicalRecordsDAO.findById(Integer.parseInt(record));
     		
-    		if(doc!=null && !medRec.getTpatients().getPassword().equals(password)){
+    		if(httpSession.getAttribute("admin")!=null){
+    			
+    		} else if(password == null){ 
+    			model.addAttribute("errormessage", "Error! No password.");
+    			return "addimage";
+    		} else if(doc!=null && !medRec.getTpatients().getPassword().equals(password)) {
+    	    	model.addAttribute("errormessage", "wrong password");
+    			return "addimage";
+    		} else if(pat!=null && !medRec.getTdoctors().getPassword().equals(password)) {
     	    	model.addAttribute("errormessage", "wrong password");
     			return "addimage";
     		}
-    		if(pat!=null && !medRec.getTdoctors().getPassword().equals(password))
-    		{
-    	    	model.addAttribute("errormessage", "wrong password");
-    			return "addimage";
-    		}
+    		
     		Drive service = (Drive) httpSession.getAttribute("drive");
     		String googleDriveLink = GoogleDriveService.saveImageAndGetLink(multipartFile, service);
     		TImages image = new TImages(medRec, name, googleDriveLink);
@@ -122,4 +132,49 @@ public class MedicalRecordImagesCRUDController {
     		return "redirect:/records";
         }
     }
+	
+	@GetMapping("/removeimage")
+    public String patientDeleteImage(Model model, @RequestParam(value = "id") String imageId, HttpSession httpSession) {
+		
+		if(httpSession.getAttribute("patient") != null){
+			TImages image = imagesDAO.findById(Integer.parseInt(imageId));
+			imagesDAO.remove(image);
+			return "redirect:/records";
+		}
+		
+		TImages image = imagesDAO.findById(Integer.parseInt(imageId));
+		model.addAttribute("medrecord", image.getTmedicalRecords());
+		model.addAttribute("records", true);
+    	model.addAttribute("errormessage", "");
+    	
+		return "deleteimage";
+	}
+	
+	@PostMapping("/removeimage")
+    public String patientDeleteImagePost(Model model,
+    		HttpSession httpSession,
+    		@RequestParam(value = "id") String imageId, 
+    		@RequestParam("password") String password) {
+
+		TPatients pat = (TPatients) httpSession.getAttribute("patient");
+		TDoctors doc = (TDoctors) httpSession.getAttribute("doctor");
+		TImages image = imagesDAO.findById(Integer.parseInt(imageId));
+		
+		if(doc!=null && !image.getTmedicalRecords().getTpatients().getPassword().equals(password)){
+	    	model.addAttribute("errormessage", "wrong password");
+	    	model.addAttribute("medrecord", image.getTmedicalRecords());
+			model.addAttribute("records", true);
+			return "removeimage";
+		}
+		if(pat!=null && !image.getTmedicalRecords().getTdoctors().getPassword().equals(password))
+		{
+			model.addAttribute("medrecord", image.getTmedicalRecords());
+			model.addAttribute("records", true);
+	    	model.addAttribute("errormessage", "wrong password");
+			return "removeimage";
+		}
+		
+		imagesDAO.remove(image);
+		return "redirect:/records";
+	}
 }

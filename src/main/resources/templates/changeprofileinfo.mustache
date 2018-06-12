@@ -84,56 +84,109 @@
 				
    					
 				<div class="col-md-12 animate-box" style="background-color:white; padding:15pt;">
-					<h3>Adding medical record form </h3>
+					<h3>Change profile info form </h3>
 					<div class="form-group" style="color:red;">
 							{{errormessage}}
 					</div>
-						
+					{{#patient}}
 					<form method="POST" action="">
 						<div class="row form-group">
-						{{#admin}}
-							<div class="col-md-6">
-								<label for="license">Doctor license number</label>
-								<input type="text" id="license"  name="license" class="form-control" placeholder="Doctor license number">
+							<div class="col-md-4">
+						
+							<label for="fname">First Name</label>
+							{{#admin}}
+							<input type="text" id="fname" name="fname" class="form-control" placeholder="Your Name" value="{{patientName}}">
+							{{/admin}}
+							{{^admin}}
+							<br><h5>{{patientName}}</h5>
+							{{/admin}}</div>
+							<div class="col-md-4">
+								<label for="lname">Last Name</label>
+								<input type="text" id="lname" name="lname" class="form-control" placeholder="Your lastname" value="{{patientSurname}}">
 							</div>
-						{{/admin}}
-						{{^admin}}
-							{{#patient}}
-							<div class="col-md-6">
-								<label for="license">Doctor license number</label>
-								<input type="text" id="license"  name="license" class="form-control" placeholder="Doctor license number">
+							<div class="col-md-4">
+								<label for="patr">Patronymic</label>
+								<input type="text" id="patr" name="patr" class="form-control" placeholder="Your patronymic" value="{{#patientPatronymic}}{{patientPatronymic}}{{/patientPatronymic}}">
 							</div>
-							{{/patient}}
-							{{#doctor}}
+						</div>
+						
+						<div class="row form-group">
 							<div class="col-md-6">
-								<label for="email">Patient e-mail</label>
-								<input type="text" id="email"  name="email" class="form-control" placeholder="Patient email">
+								<label for="bloodgroup">Patient blood group</label> 
+								<input type="text" id="bloodgroup" name="bloodgroup" class="form-control"  placeholder="Your blood group" value="{{#patientBloodGroup}}{{patientBloodGroup}}{{/patientBloodGroup}}">
 							</div>
-							{{/doctor}}
 							<div class="col-md-6">
-							{{#patient}}
-								<label for="password">Doctor password</label>
-							{{/patient}}
-							{{#doctor}}
-								<label for="password">Patient password</label>
-							{{/doctor}}
-								<input type="text" id="password" name="password" class="form-control" placeholder="Password">
-								
+								<label for="rh">Patient Rh factor</label> 
+								<input type="text" id="rh" name="rh" class="form-control"  placeholder="Your Rh factor" value="{{#patientRhFactor}}{{patientRhFactor}}{{/patientRhFactor}}">
 							</div>
-						{{/admin}}	
 						</div>
 						<div class="row form-group">
 							<div class="col-md-12">
-								<label for="record">Record</label> 
-								<textarea name="record" id="record" cols="30" rows="10" class="form-control" placeholder="Medical info"></textarea>
+								<label for="allergies">Allergies info</label> 
+								<textarea name="allergies" id="allergies" cols="30" rows="10" class="form-control" placeholder="Allergies info">{{#patientAllergiesInfo}}{{patientAllergiesInfo}}{{/patientAllergiesInfo}}</textarea>
 							</div>
 						</div>
 						
+						{{#admin}}
+						{{/admin}}
+						{{^admin}}
+						<div class="row form-group">
+							<div class="col-md-12">
+								<label for="password">Password</label> 
+								<input type="password" id="password" name="password" class="form-control"  placeholder="Your password">
+							</div>
+						</div>
+						{{/admin}}
+						
+						
 						<div class="form-group">
-							<input type="submit" value="Add record" class="btn btn-primary">
+							<input type="submit" value="Change info" class="btn btn-primary">
 						</div>
 
-					</form>		
+					</form>
+					{{/patient}}
+					
+					
+					{{#doctor}}
+					<form method="POST" action="">
+						<div class="row form-group">
+							<div class="col-md-4">
+						
+							<label for="fname">First Name</label>
+							{{#admin}}
+							<input type="text" id="fname" name="fname" class="form-control" placeholder="Your Name" value="{{doctorName}}">
+							{{/admin}}
+							{{^admin}}
+							<h4><br>&nbsp;&nbsp;{{doctorName}}</h4>
+							{{/admin}}</div>
+							<div class="col-md-4">
+								<label for="lname">Last Name</label>
+								<input type="text" id="lname" name="lname" class="form-control" placeholder="Your lastname" value="{{doctorSurname}}">
+							</div>
+							<div class="col-md-4">
+								<label for="patr">Patronymic</label>
+								<input type="text" id="patr" name="patr" class="form-control" placeholder="Your patronymic" value="{{#doctorPatronymic}}{{doctorPatronymic}}{{/doctorPatronymic}}">
+							</div>
+						</div>
+						
+						{{#admin}}
+						{{/admin}}
+						{{^admin}}
+						<div class="row form-group">
+							<div class="col-md-12">
+								<label for="password">Password</label> 
+								<input type="password" id="password" name="password" class="form-control"  placeholder="Your password">
+							</div>
+						</div>
+						{{/admin}}
+						
+						
+						<div class="form-group">
+							<input type="submit" value="Change info" class="btn btn-primary">
+						</div>
+
+					</form>
+					{{/doctor}}				
 				</div>
 			
 			</div>

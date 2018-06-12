@@ -34,7 +34,8 @@ public class TMedicalRecords implements java.io.Serializable {
 	private Date medicalRecordDate;
 	//TODO No lazy load images
 	private Set<TImages> tImages = new HashSet<TImages>(0);
-
+	
+	
 	public TMedicalRecords() {
 	}
 
@@ -106,7 +107,7 @@ public class TMedicalRecords implements java.io.Serializable {
 		this.medicalRecordDate = medicalRecordDate;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tmedicalRecords")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tmedicalRecords")
 	public Set<TImages> getTImages() {
 		return this.tImages;
 	}

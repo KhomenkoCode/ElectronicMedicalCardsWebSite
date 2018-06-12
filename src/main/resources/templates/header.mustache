@@ -13,6 +13,15 @@
 						>
 							<a href="/">About</a>
 						</li>
+						{{#admin}}
+									<li {{#adminpanel}}
+										class="active"
+									{{/adminpanel}}>
+										<a href="/adminpanel">Admin panel</a>
+									</li>		
+						{{/admin}}
+						{{^admin}}
+								
 						{{#doctor}}
 							<li>
 								<a href="/profile">Profile</a>
@@ -23,13 +32,6 @@
 							<li>
 								<a href="/profile">Profile</a>
 							</li>
-							{{/patient}}
-							{{^patient}}
-								{{#admin}}
-									<li>
-										<a href="/adminpanel">Admin panel</a>
-									</li>		
-								{{/admin}}
 							{{/patient}}
 						{{/doctor}}
 						
@@ -44,6 +46,8 @@
 								<a href="/records">Medical records</a>
 							</li>
 						{{/doctor}}
+						{{/admin}}
+						
 						<li
 						{{#contact}}
 							class="active"

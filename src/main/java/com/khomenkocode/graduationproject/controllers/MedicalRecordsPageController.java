@@ -19,7 +19,7 @@ import com.khomenkocode.graduationproject.entities.TMedicalRecords;
 import com.khomenkocode.graduationproject.entities.TPatients;
 
 @Controller
-@SessionAttributes({"patient","doctor"})
+@SessionAttributes({"patient","doctor","admin"})
 public class MedicalRecordsPageController {
 
 	@Autowired

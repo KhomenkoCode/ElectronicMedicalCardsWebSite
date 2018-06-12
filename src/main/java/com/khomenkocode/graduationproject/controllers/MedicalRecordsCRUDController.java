@@ -44,23 +44,33 @@ public class MedicalRecordsCRUDController {
     public String patientAddRecordPost(Model model, HttpSession httpSession, 
     		@RequestParam(value = "email", required = false) String email, 
     		@RequestParam(value = "license", required = false) String license, 
-    		@RequestParam("password") String password,
+    		@RequestParam(value = "password", required = false) String password,
     		@RequestParam("record") String record) {
     	try{
     		TPatients pat = (TPatients) httpSession.getAttribute("patient");
     		TDoctors doc = (TDoctors) httpSession.getAttribute("doctor");
     		
-    		if(pat != null){
+    		if(httpSession.getAttribute("admin")!=null)
+    		{
+    			TDoctors doctor = doctorsDAO.findByLicenseNumber(license);
+    			TMedicalRecords medRec = new TMedicalRecords(doctor, pat, record, new Date());
+    			medicalRecordsDAO.persist(medRec);
+    		} else if(password == null){
+    			model.addAttribute("errormessage", "Do not forget to enter password!");
+        		return "addrecord";
+    		} else if(pat != null) {
     			TDoctors doctor = doctorsDAO.findByLicenseNumberAndPassword(license, password);
     			TMedicalRecords medRec = new TMedicalRecords(doctor, pat, record, new Date());
     			medicalRecordsDAO.persist(medRec);
-    		}else if(doc != null){
+    		} else if(doc != null) {
     			TPatients patient = patientsDAO.findByEmailAndPassword(email, password);
     			TMedicalRecords medRec = new TMedicalRecords(doc, patient, record, new Date());
     			medicalRecordsDAO.persist(medRec);
     		}
+    		
     		return "redirect:/records";
     	}	catch(NoResultException e){        
+	    	model.addAttribute("errormessage", "Wrong password!");
     		return "addrecord";
         }
         
@@ -85,13 +95,28 @@ public class MedicalRecordsCRUDController {
     @PostMapping("/changerecord")
     public String patientChangeRecordPost(Model model, HttpSession httpSession, 
     		@RequestParam(value = "record", required = true) String recordId, 
-    		@RequestParam("password") String password,
+    		@RequestParam(value = "password", required = false) String password,
     		@RequestParam("recordtext") String record) {
     	try{
     		TMedicalRecords medRec = medicalRecordsDAO.findById(Integer.parseInt(recordId));
 
+    		
+    		if(httpSession.getAttribute("admin") != null){
+    			medRec.setMedicalRecord(record);
+    			medicalRecordsDAO.merge(medRec);
+    			return "redirect:/records";
+    		}
+        	
+    		if(password==null)
+    		{     
+    	    	model.addAttribute("errormessage", "Error! No password.");
+        		return "changerecord";
+    		}
+    		
     		TPatients pat = (TPatients) httpSession.getAttribute("patient");
     		TDoctors doc = (TDoctors) httpSession.getAttribute("doctor");
+    		
+    		
     		if(pat != null)
     		{	
     			if(!medRec.getTdoctors().getPassword().equals(password))
@@ -110,21 +135,29 @@ public class MedicalRecordsCRUDController {
     		medicalRecordsDAO.merge(medRec1);
     		return "redirect:/records";
     	}	catch(NoResultException e){        
-	    	model.addAttribute("errormessage", "Error changing password");
+	    	model.addAttribute("errormessage", "Error changing record. Try again later.");
     		return "changerecord";
         }
         
     }
     
     @GetMapping("/removerecord")
-    public String patientRemoveRecord(Model model, @RequestParam(value = "record", required = false) String record) {
+    public String patientRemoveRecord(Model model, @RequestParam(value = "record", required = false) String record,
+    		HttpSession httpSession) {
     	TMedicalRecords medRec;
+    	
     	try{
     		medRec = medicalRecordsDAO.findById(Integer.parseInt(record));
     	} catch(Exception e) {
     		System.out.println(e.getMessage());
     		return "redirect:/records";
     	}
+    	
+    	if(httpSession.getAttribute("admin") != null){
+    		medicalRecordsDAO.remove(medRec);
+			return "redirect:/records";
+		}
+    	
     	model.addAttribute("records", true);
     	model.addAttribute("record", medRec);
     	model.addAttribute("errormessage", "");

@@ -94,4 +94,15 @@ public class TPatientsDAO {
 			throw re;
 		}
 	}
+	
+	public TPatients findByEmail(String email) throws NoResultException {
+		try {
+			TPatients instance = (TPatients) entityManager.createQuery("FROM TPatients t where t.email = :value1")
+					.setParameter("value1", email).getSingleResult();
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
 }

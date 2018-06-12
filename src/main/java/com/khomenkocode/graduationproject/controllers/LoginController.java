@@ -68,7 +68,7 @@ public class LoginController {
     	try{
     		TDoctors doctor = doctorsDAO.findByLicenseNumberAndPassword(license, password);
     		model.addAttribute("doctor", doctor);
-    		return "redirect:/";
+    		return "redirect:/records";
     	}	catch(NoResultException e){        
     		return "doctorlogin";
         }

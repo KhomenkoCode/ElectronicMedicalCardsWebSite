@@ -44,7 +44,7 @@ public class TImages implements java.io.Serializable {
 		this.imageId = imageId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "medical_record_id", nullable = false)
 	public TMedicalRecords getTmedicalRecords() {
 		return this.tmedicalRecords;

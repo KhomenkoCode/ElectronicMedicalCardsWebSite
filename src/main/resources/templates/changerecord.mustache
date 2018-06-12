@@ -91,7 +91,10 @@
 						
 					<form method="POST" action="">
 						<div class="row form-group">
+							{{#admin}}{{/admin}}
+							{{^admin}}
 							<div class="col-md-6">
+								
 								{{#patient}}
 								<label>Medical doctor</label><br>
 								{{#record}}{{#tDoctors}}{{doctorName}} {{doctorSurname}} {{doctorPatronymic}}{{/tDoctors}}{{/record}}
@@ -114,7 +117,7 @@
 								{{/doctor}}
 								<input type="text" id="password" name="password" class="form-control" placeholder="Password">
 							</div>
-							
+							{{/admin}}
 						</div>
 						<div class="row form-group">
 							<div class="col-md-12">

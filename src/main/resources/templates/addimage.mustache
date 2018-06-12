@@ -90,7 +90,12 @@ a
 					</div>
 						
 					<form method="POST" action="" enctype="multipart/form-data">
+						{{#admin}}
+							{{/admin}}
+							{{^admin}}
 						<div class="row form-group">
+						
+							
 							<div class="col-md-6">
 							{{#patient}}
 								<label>Medical doctor</label><br>
@@ -116,6 +121,8 @@ a
 							</div>
 							
 						</div>
+							{{/admin}}
+							
 						<div class="row form-group">
 							<div class="col-md-12">
 								<label for="imgname">Image name</label>
@@ -128,7 +135,7 @@ a
 						</div>
 						
 						<div class="form-group">
-							<input type="submit" value="Add record" class="btn btn-primary">
+							<input type="submit" value="Add image to medical record" class="btn btn-primary">
 						</div>
 
 					</form>		

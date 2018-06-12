@@ -117,9 +117,37 @@ public class TDoctorsDAO {
 			TDoctors instance = (TDoctors) entityManager.createQuery("FROM TDoctors t where t.licenseNumber = :value1 and t.password = :value2")
 					.setParameter("value1", license).setParameter("value2", password).getSingleResult();
 			
-			if(instance.getDoctorIsConfirmed() == 0) 
-				throw new RuntimeException("Doctors profile isn't activated");
 				
+			return instance;
+		
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public TDoctors findByLicenseNumber(String license) throws NoResultException {
+		
+		try {
+			TDoctors instance = (TDoctors) entityManager.createQuery("FROM TDoctors t where t.licenseNumber = :value1")
+					.setParameter("value1", license).getSingleResult();
+			
+				
+			return instance;
+		
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+
+	public List<TDoctors> findAllUnconfirmed() throws NoResultException {
+		
+		try {
+			List<TDoctors> instance = (List<TDoctors>) entityManager.createQuery("FROM TDoctors t where t.doctorIsConfirmed = :value1")
+					.setParameter("value1", (short) 1).getResultList();
+			
 			return instance;
 		
 		} catch (RuntimeException re) {

@@ -111,8 +111,23 @@
 					</i>
 					<hr style="margin:0; padding:0;">
 					{{medicalRecord}} 
-					<hr>
-					<a href="/addimage?record={{medicalRecordId}}">add image</a>
+					<hr style="padding:0; margin-bottom:2pt;">
+					{{#tImages}}
+					<div class="row form-group">	
+						<div class="col-md-3">
+							<img src="{{imageUrl}}" style="width:100%; height:100%; max-width:200pt; max-height:200pt;">
+							
+						</div>
+						<div class="col-md-9">
+							{{imageName}}<br>
+							<a href="{{imageUrl}}"> Full size</a><br>
+							<a href="/removeimage?id={{imageId}}">Delete image</a>
+						</div>
+					</div>
+					{{/tImages}}
+					<div>
+							<a href="/addimage?record={{medicalRecordId}}">add image</a>
+					</div>
 					</div>
 				{{/records}}
 				{{^records}}

@@ -12,7 +12,7 @@
 
 	<!-- 
 	//////////////////////////////////////////////////////
-
+a
 	FREE HTML5 TEMPLATE 
 	DESIGNED & DEVELOPED by FreeHTML5.co
 		
@@ -79,81 +79,40 @@
 	<div id="fh5co-about"  role="banner" style="background-image:url(images/img_bg_1.jpg);padding-top:25pt;">
 		
 		<div class="container">
-			<div class="about-content">
-				<div class="row animate-box">
-					{{#patient}}<div class="col-md-6">
-						
-					<div style="background-color:white; margin:5pt; padding:15pt;min-height:260pt;">
-					
-							<h3 style="padding:0; margin:0;">{{patientName}} {{patientSurname}} {{#patientPatronymic}}{{patientPatronymic}}{{/patientPatronymic}}</h3>
-							<p>{{email}}</p> 
-							<h5 style="line-height:1.5em;">Patient blood group: {{#patientBloodGroup}}{{patientBloodGroup}}{{/patientBloodGroup}}<br>
-							Rh factor: {{#patientRhFactor}}{{patientRhFactor}}{{/patientRhFactor}}<br>
-							Allergies info: {{#patientAllergiesInfo}}{{patientAllergiesInfo}}{{/patientAllergiesInfo}}</h5>
-							<p><a href="/changeprofileinfo">Сhange info</a></p>
-							
-						
-						
-						
-						
-   						</div>
+			<div class="about-content" style="min-height:250pt;">
+				
+				
+   					
+				<div class="col-md-12 animate-box" style="background-color:white; padding:15pt;">
+					<h3>Medical doctor license confirmation</h3>
+					<div class="form-group" style="color:red;">
+							{{errormessage}}
 					</div>
-					<div class="col-md-6" style="min-height:260pt;">
-						<div style="background-color:white; margin:5pt; padding:15pt;min-height:260pt;">
-						<center><h5>QR-code for fast log-in</h5>
-						<div id="qrcode"></div><center>		
 						
+					<form method="POST" action="" enctype="multipart/form-data">
+						
+						<div class="row form-group">
+							<div class="col-md-12">
+							<h5>Send your medical doctor license on verification for getting access to basic doctor functional on this web service. </h5>
+								<label for="image">Addiction image</label> 
+								<input id="image" name="image" type="file" accept="image/*">
+							</div>
 						</div>
-					</div>
-					{{/patient}}
-					{{#doctor}}
-					<div class="col-md-12" style="min-height:260pt;">
-					<div style="background-color:white; margin:5pt; padding:15pt;min-height:260pt;">
-						<h3 style="padding:0; margin:0;">{{doctorName}} {{doctorSurname}} {{#doctorPatronymic}}{{doctorPatronymic}}{{/doctorPatronymic}}</h3>
-						<p>License number: {{licenseNumber}}</p> 
-						<p><a href="/changeprofileinfo">Сhange info</a></p>
-						<h5 style="line-height:1.5em;"> 
-						Doctor profile status:<br>
-							{{#confirmed}}
+						
+						<div class="form-group">
+							<input type="submit" value="Submit" class="btn btn-primary">
+						</div>
 
-								Profile is confirmed! All functions are available.
-							{{/confirmed}}
-							{{^confirmed}}
-								{{#inprocess}}
-									Your doctor license photo was send to administrator for confirmation.  								
-								{{/inprocess}}
-								{{^inprocess}}
-									Doctor profile is not confirmed! Some functions can be unable to do through this account.
-									<br><br>
-									{{#admin}}
-									{{/admin}}
-									{{^admin}}
-									<a href="/licenseconfirmation">Confirm doctor license</a>
-									{{/admin}}
-								{{/inprocess}}
-								
-							{{/confirmed}}  		
-						</h5>		
-					</div></div>
-					{{/doctor}}
+					</form>		
 				</div>
+			
 			</div>
 		</div>
 	</div>
   
    </div>
-    <script src="js/qrcode.js"></script>
-     <script src="js/qrcode.min.js"></script>
- <script> 
-
-function makeCode () {      
-	 var qrcode = new QRCode(document.getElementById("qrcode"), "{{#patient}}{{patientId}}{{/patient}}");
-}
-
-makeCode();
-</script>
    <script src="../../js/qcode-decoder.min.js"></script>
-  
+   
    <!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->

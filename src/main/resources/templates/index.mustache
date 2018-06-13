@@ -71,7 +71,55 @@
 	{{> header}}
  
 
-	<div id="fh5co-about"  role="banner" style="background-image:url(images/img_bg_2.jpg);padding-top:25pt;">
+	<aside id="fh5co-hero" class="js-fullheight">
+		<div class="flexslider js-fullheight">
+			<ul class="slides">
+		   	<li style="background-image: url(images/img_bg_1.jpg);">
+		   		<div class="overlay-gradient"></div>
+		   		<div class="container">
+		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<div class="desc">
+		   						<h2>Fast & user-friendly service</h2>
+		   						<p>We provide a lot of functionality for our users.</p>
+			   					<p><a href="/patientregistration" class="btn btn-primary btn-outline btn-lg">Start using Now</a></p>
+		   					</div>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_2.jpg);">
+		   		<div class="container">
+		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<div class="desc">
+		   						<h2>Doctor identity protection</h2>
+		   						<p>License confirmation system can protect you from stealing your identity as medical doctor.</p>
+			   					<p><a href="/doctorregistration" class="btn btn-primary btn-outline btn-lg">Register doctor</a></p>
+		   					</div>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	<li style="background-image: url(images/img_bg_3.jpg);">
+		   		<div class="container">
+		   			<div class="col-md-6 col-md-offset-3 col-md-pull-3 js-fullheight slider-text">
+		   				<div class="slider-text-inner">
+		   					<div class="desc">
+		   						<h2>Already registered?</h2>
+		   						<p>Sign in to start working with our service.</p>
+			   					<p><a href="/patientlogin" class="btn btn-primary btn-outline btn-lg">Sing in as patient</a></p>
+			   					<p><a href="/doctorlogin" class="btn btn-primary btn-outline btn-lg">Sing in as doctor</a></p>
+		   					</div>
+		   				</div>
+		   			</div>
+		   		</div>
+		   	</li>
+		   	
+		  	</ul>
+	  	</div>
+	</aside>
+	<div id="fh5co-about"  role="banner" style="padding-top:25pt; height:300pt;">
 		
 		<div class="container">
 			<div class="about-content">
@@ -97,6 +145,9 @@ It promises to be a safe, quick, and easy way for people to register online, wit
 			</div>
 		</div>
 	</div>
+	
+	
+	
   {{> footer}}
    </div>
    <script src="../../js/qcode-decoder.min.js"></script>

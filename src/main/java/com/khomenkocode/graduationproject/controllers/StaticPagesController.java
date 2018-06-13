@@ -28,6 +28,12 @@ public class StaticPagesController {
         return "index";
     }
     
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        model.addAttribute("contact", true);
+        return "contact";
+    }
+    
     @GetMapping("/test")
     public String test(Model model) {
     	

@@ -220,4 +220,35 @@ public class AdminPanelController {
 			model.addAttribute("adminpanel", true);
 			return "addhospital";
 	    }
+	 	
+	 	@PostMapping("/addhospital")
+		public String addHospitalPost(Model model,
+				HttpSession httpSession, 
+				 @RequestParam(value="hospname") String hospitalName,
+				 @RequestParam(value = "address") String address) {
+			 
+	 		if(httpSession.getAttribute("admin") == null)
+	 			return "redirect:/";
+
+	 		THospitals hosp = new THospitals(hospitalName, address);
+	 		hospitalsDAO.persist(hosp);
+	 		
+			return "redirect:/hospitallist";
+	    }
+	 	
+	 	@GetMapping("/removehospital")
+		public String removeHospitalGet(Model model,
+				HttpSession httpSession,
+				 @RequestParam(value = "hospital") String hospital) {
+			
+	 		if(httpSession.getAttribute("admin") == null)
+	 			return "redirect:/";
+	 		THospitals hosp = hospitalsDAO.findById(Integer.parseInt(hospital));
+	 		if(hosp!=null)
+	 			hospitalsDAO.remove(hosp);
+	 		
+
+			return "redirect:/hospitallist";
+	    }
+	 	
 }

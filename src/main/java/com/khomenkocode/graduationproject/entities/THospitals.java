@@ -6,8 +6,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -25,20 +28,21 @@ public class THospitals implements java.io.Serializable {
 	public THospitals() {
 	}
 
-	public THospitals(int hospitalId) {
-		this.hospitalId = hospitalId;
+	public THospitals(String hospitalName, String hospitalAdress) {
+		this.hospitalName = hospitalName;
+		this.hospitalAdress = hospitalAdress;
 	}
 
-	public THospitals(int hospitalId, String hospitalName, String hospitalAdress,
+	public THospitals(String hospitalName, String hospitalAdress,
 			Set<THospitalDoctors> thospitalDoctorses) {
-		this.hospitalId = hospitalId;
 		this.hospitalName = hospitalName;
 		this.hospitalAdress = hospitalAdress;
 		this.thospitalDoctorses = thospitalDoctorses;
 	}
 
 	@Id
-
+	@SequenceGenerator(name="pk_sequence",sequenceName="thospitals_hospital_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "hospital_id", unique = true, nullable = false)
 	public int getHospitalId() {
 		return this.hospitalId;
